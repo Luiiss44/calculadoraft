@@ -15,153 +15,203 @@ class CalculatorScreen extends StatelessWidget {
             end: Alignment.bottomCenter,
             colors: [
               Theme.of(context).colorScheme.primaryContainer,
-              Theme.of(context).colorScheme.background,
+              Theme.of(context).colorScheme.surface,
             ],
           ),
         ),
         child: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  alignment: Alignment.bottomRight,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Consumer<CalculatorProvider>(
-                        builder: (context, calculator, child) {
-                          return Text(
-                            calculator.history,
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              color: Theme.of(context).colorScheme.onPrimaryContainer,
-                            ),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 8),
-                      Consumer<CalculatorProvider>(
-                        builder: (context, calculator, child) {
-                          return Text(
-                            calculator.currentNumber,
-                            style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                              color: Theme.of(context).colorScheme.onPrimaryContainer,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          );
-                        },
-                      ),
-                    ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.all(32),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(32),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Theme.of(context).colorScheme.shadow.withOpacity(0.2),
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
+                          spreadRadius: 2,
+                        ),
+                      ],
+                    ),
+                    alignment: Alignment.bottomRight,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Consumer<CalculatorProvider>(
+                          builder: (context, calculator, child) {
+                            return Text(
+                              calculator.history,
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                color: Colors.black54,
+                                fontSize: 24,
+                                height: 1.2,
+                              ),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 12),
+                        Consumer<CalculatorProvider>(
+                          builder: (context, calculator, child) {
+                            return Text(
+                              calculator.currentNumber,
+                              style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 56,
+                                height: 1.1,
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 5,
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Row(
-                          children: [
-                            _buildButton('C', onPressed: () {
-                              context.read<CalculatorProvider>().clear();
-                            }, isOperator: true),
-                            _buildButton('+/-', onPressed: () {
-                              context.read<CalculatorProvider>().changeSign();
-                            }, isOperator: true),
-                            _buildButton('%', onPressed: () {
-                              context.read<CalculatorProvider>().percentage();
-                            }, isOperator: true),
-                            _buildButton('÷', onPressed: () {
-                              context.read<CalculatorProvider>().setOperation('÷');
-                            }, isOperator: true),
-                          ],
+                Expanded(
+                  flex: 5,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Row(
+                            children: [
+                              _buildButton(context, 'C', onPressed: () {
+                                context.read<CalculatorProvider>().clear();
+                              }, isOperator: true),
+                              _buildButton(context, '+/-', onPressed: () {
+                                context.read<CalculatorProvider>().changeSign();
+                              }, isOperator: true),
+                              _buildButton(context, '%', onPressed: () {
+                                context.read<CalculatorProvider>().percentage();
+                              }, isOperator: true),
+                              _buildButton(context, '÷', onPressed: () {
+                                context.read<CalculatorProvider>().setOperation('÷');
+                              }, isOperator: true),
+                            ],
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            _buildButton('7'),
-                            _buildButton('8'),
-                            _buildButton('9'),
-                            _buildButton('×', isOperator: true),
-                          ],
+                        Expanded(
+                          child: Row(
+                            children: [
+                              _buildButton(context, '7', onPressed: () {
+                                context.read<CalculatorProvider>().addDigit('7');
+                              }),
+                              _buildButton(context, '8', onPressed: () {
+                                context.read<CalculatorProvider>().addDigit('8');
+                              }),
+                              _buildButton(context, '9', onPressed: () {
+                                context.read<CalculatorProvider>().addDigit('9');
+                              }),
+                              _buildButton(context, '×', onPressed: () {
+                                context.read<CalculatorProvider>().setOperation('×');
+                              }, isOperator: true),
+                            ],
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            _buildButton('4'),
-                            _buildButton('5'),
-                            _buildButton('6'),
-                            _buildButton('-', isOperator: true),
-                          ],
+                        Expanded(
+                          child: Row(
+                            children: [
+                              _buildButton(context, '4', onPressed: () {
+                                context.read<CalculatorProvider>().addDigit('4');
+                              }),
+                              _buildButton(context, '5', onPressed: () {
+                                context.read<CalculatorProvider>().addDigit('5');
+                              }),
+                              _buildButton(context, '6', onPressed: () {
+                                context.read<CalculatorProvider>().addDigit('6');
+                              }),
+                              _buildButton(context, '-', onPressed: () {
+                                context.read<CalculatorProvider>().setOperation('-');
+                              }, isOperator: true),
+                            ],
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            _buildButton('1'),
-                            _buildButton('2'),
-                            _buildButton('3'),
-                            _buildButton('+', isOperator: true),
-                          ],
+                        Expanded(
+                          child: Row(
+                            children: [
+                              _buildButton(context, '1', onPressed: () {
+                                context.read<CalculatorProvider>().addDigit('1');
+                              }),
+                              _buildButton(context, '2', onPressed: () {
+                                context.read<CalculatorProvider>().addDigit('2');
+                              }),
+                              _buildButton(context, '3', onPressed: () {
+                                context.read<CalculatorProvider>().addDigit('3');
+                              }),
+                              _buildButton(context, '+', onPressed: () {
+                                context.read<CalculatorProvider>().setOperation('+');
+                              }, isOperator: true),
+                            ],
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            _buildButton('0', flex: 2),
-                            _buildButton('.'),
-                            _buildButton('=', isOperator: true),
-                          ],
+                        Expanded(
+                          child: Row(
+                            children: [
+                              _buildButton(context, '0', onPressed: () {
+                                context.read<CalculatorProvider>().addDigit('0');
+                              }, flex: 2),
+                              _buildButton(context, '.', onPressed: () {
+                                context.read<CalculatorProvider>().addDigit('.');
+                              }),
+                              _buildButton(context, '=', onPressed: () {
+                                context.read<CalculatorProvider>().calculate();
+                              }, isOperator: true),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildButton(String text, {required VoidCallback? onPressed, int flex = 1, bool isOperator = false}) {
+  Widget _buildButton(BuildContext context, String text, {
+    required VoidCallback onPressed,
+    int flex = 1,
+    bool isOperator = false,
+  }) {
     return Expanded(
       flex: flex,
       child: Padding(
         padding: const EdgeInsets.all(4),
         child: ElevatedButton(
-          onPressed: onPressed ?? () {
-            // Manejo de dígitos numéricos
-            if (text != '=' && text != 'C' && text != '+/-' && text != '%' && text != '÷' && text != '×' && text != '-' && text != '+') {
-              onPressed?.call();
-            }
-          },
+          onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor: isOperator 
-                ? Theme.of(context).colorScheme.primaryContainer
+                ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).colorScheme.surface,
             foregroundColor: isOperator 
-                ? Theme.of(context).colorScheme.onPrimaryContainer
-                : Theme.of(context).colorScheme.onSurface,
-            elevation: 4,
-            shadowColor: Theme.of(context).colorScheme.shadow,
+                ? Theme.of(context).colorScheme.onPrimary
+                : const Color(0xFF01579B),
+            elevation: 8,
+            shadowColor: Theme.of(context).colorScheme.shadow.withOpacity(0.3),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(20),
             ),
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(20),
           ),
           child: Text(
             text,
             style: TextStyle(
-              fontSize: 24,
-              fontWeight: isOperator ? FontWeight.bold : FontWeight.normal,
+              fontSize: 28,
+              fontWeight: isOperator ? FontWeight.bold : FontWeight.w500,
+              height: 1.2,
             ),
           ),
         ),
