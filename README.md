@@ -57,6 +57,7 @@ El proyecto sigue la estructura estándar de una aplicación Flutter. A continua
 - Otros archivos generados automáticamente (por ejemplo, .metadata, analysis_options.yaml, etc.).
 
 A medida que el proyecto crezca, puedes agregar más carpetas (por ejemplo, assets/ para imágenes) según sea necesario.
+## Capturas de pantalla
 
 ![Demostración de la calculadora](screenshots/ezgif-1fece35aa84f6f.gif)
 
