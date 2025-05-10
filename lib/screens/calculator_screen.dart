@@ -34,10 +34,9 @@ class CalculatorScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(32),
                       boxShadow: [
                         BoxShadow(
-                          color: Theme.of(context).colorScheme.shadow.withOpacity(0.2),
-                          blurRadius: 20,
-                          offset: const Offset(0, 8),
-                          spreadRadius: 2,
+                          color: Theme.of(context).colorScheme.shadow.withOpacity(0.1),
+                          blurRadius: 16,
+                          offset: const Offset(0, 4),
                         ),
                       ],
                     ),
@@ -51,7 +50,7 @@ class CalculatorScreen extends StatelessWidget {
                             return Text(
                               calculator.history,
                               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                color: Colors.black54,
+                                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                                 fontSize: 24,
                                 height: 1.2,
                               ),
@@ -64,7 +63,7 @@ class CalculatorScreen extends StatelessWidget {
                             return Text(
                               calculator.currentNumber,
                               style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                                color: Colors.black,
+                                color: Theme.of(context).colorScheme.onSurface,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 56,
                                 height: 1.1,
@@ -88,7 +87,7 @@ class CalculatorScreen extends StatelessWidget {
                               _buildButton(context, 'C', onPressed: () {
                                 context.read<CalculatorProvider>().clear();
                               }, isOperator: true),
-                              _buildButton(context, '+/-', onPressed: () {
+                              _buildButton(context, '±', onPressed: () {
                                 context.read<CalculatorProvider>().changeSign();
                               }, isOperator: true),
                               _buildButton(context, '%', onPressed: () {
@@ -190,28 +189,38 @@ class CalculatorScreen extends StatelessWidget {
       flex: flex,
       child: Padding(
         padding: const EdgeInsets.all(4),
-        child: ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: isOperator 
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.surface,
-            foregroundColor: isOperator 
-                ? Theme.of(context).colorScheme.onPrimary
-                : const Color(0xFF01579B),
-            elevation: 8,
-            shadowColor: Theme.of(context).colorScheme.shadow.withOpacity(0.3),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            padding: const EdgeInsets.all(20),
-          ),
-          child: Text(
-            text,
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: isOperator ? FontWeight.bold : FontWeight.w500,
-              height: 1.2,
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onPressed,
+            borderRadius: BorderRadius.circular(20),
+            child: Container(
+              decoration: BoxDecoration(
+                color: isOperator 
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(context).colorScheme.shadow.withOpacity(0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Text(
+                  text,
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: isOperator ? FontWeight.bold : FontWeight.w500,
+                    height: 1.2,
+                    color: isOperator 
+                        ? Theme.of(context).colorScheme.onPrimary
+                        : Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
             ),
           ),
         ),
