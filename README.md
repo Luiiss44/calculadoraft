@@ -58,9 +58,8 @@ El proyecto sigue la estructura estándar de una aplicación Flutter. A continua
 
 A medida que el proyecto crezca, puedes agregar más carpetas (por ejemplo, assets/ para imágenes) según sea necesario.
 
-## Capturas de pantalla
-*(Para agregar capturas de pantalla, crea una carpeta `screenshots/` en tu repositorio y añade las imágenes ahí)*
-screenshots/ezgif-1fece35aa84f6f.gif
+![Demostración de la calculadora](screenshots/ezgif-1fece35aa84f6f.gif)
+
 
 ## Créditos
 Este proyecto fue creado por [Luiiss44](https://github.com/Luiiss44) y generado inicialmente con Flutter. Utiliza el framework Flutter de Google y las librerías estándar de Dart.
