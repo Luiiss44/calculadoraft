@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => CalculatorProvider(),
       child: MaterialApp(
-        title: 'Calculadora Flutter',
+        title: 'Calculator Flutter',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: const Color(0xFF2196F3),
