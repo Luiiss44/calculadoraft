@@ -47,7 +47,7 @@ class CalculatorScreen extends StatelessWidget {
                               .of(context)
                               .colorScheme
                               .shadow
-                              .withOpacity(0.2),
+                              .withAlpha(51),
                           blurRadius: 24,
                           offset: const Offset(0, 8),
                           spreadRadius: 2,
@@ -61,21 +61,43 @@ class CalculatorScreen extends StatelessWidget {
                       children: [
                         Consumer<CalculatorProvider>(
                           builder: (context, calculator, child) {
-                            return Text(
-                              calculator.history,
-                              style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                color: Theme
-                                    .of(context)
-                                    .colorScheme
-                                    .onSurface
-                                    .withOpacity(0.6),
-                                fontSize: 24,
-                                height: 1.2,
-                              ),
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                if (calculator.isRepeating && calculator.lastOperation != null && calculator.lastNumber != null)
+                                  Text(
+                                    'Rep: ${calculator.lastOperation}${calculator.lastNumber}',
+                                    style: Theme
+                                        .of(context)
+                                        .textTheme
+                                        .titleSmall
+                                        ?.copyWith(
+                                      color: Theme
+                                          .of(context)
+                                          .colorScheme
+                                          .primary
+                                          .withAlpha(153),
+                                      fontSize: 16,
+                                      height: 1.2,
+                                    ),
+                                  ),
+                                Text(
+                                  calculator.history,
+                                  style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                    color: Theme
+                                        .of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withAlpha(153),
+                                    fontSize: 24,
+                                    height: 1.2,
+                                  ),
+                                ),
+                              ],
                             );
                           },
                         ),
@@ -254,7 +276,7 @@ class CalculatorScreen extends StatelessWidget {
                 .of(context)
                 .colorScheme
                 .secondary
-                .withOpacity(0.2),
+                .withAlpha(51),
             highlightColor: Colors.transparent,
             child: Container(
               height: double.infinity,
